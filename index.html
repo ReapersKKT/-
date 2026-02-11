@@ -424,31 +424,41 @@ canvas#heartCanvas {
 }
 
 .game-content {
-  width: 90%;
-  max-width: 600px;
+  width: 95%;
+  max-width: 500px;
+  /* 增加最大高度限制，防止超出屏幕 */
+  max-height: 85vh;
+  overflow-y: auto; 
   background: linear-gradient(135deg, #a30000, #5c0000);
   border: 2px solid #ffd700;
   border-radius: 16px;
-  padding: 40px;
+  padding: clamp(15px, 4vw, 30px); /* 减小内边距 */
   text-align: center;
   box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
   position: relative;
+  /* 隐藏滚动条但保留功能 (Webkit) */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+.game-content::-webkit-scrollbar { 
+  display: none; 
 }
 
 .game-content h3 {
   color: #ffd700;
-  font-size: 28px;
-  letter-spacing: 4px;
-  margin-bottom: 30px;
+  font-size: clamp(20px, 6vw, 28px);
+  letter-spacing: 2px;
+  margin-bottom: 15px; /* 减小间距 */
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  margin-top: 10px; /* 顶部留出关闭按钮空间 */
 }
 
 .red-packet-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px, 2vw, 15px); /* 减小网格间距 */
+  margin-bottom: 15px;
+  justify-items: center;
 }
 
 .red-packet {
