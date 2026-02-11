@@ -563,7 +563,7 @@ canvas#heartCanvas {
   ♫
 </div>
 <audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="NORTHSIDE BLICK - 暖风[FREE]Jazz boombap type beat.mp3" type="audio/mpeg">
 </audio>
 
 <!-- 红包游戏入口 -->
@@ -1371,6 +1371,14 @@ document.addEventListener('wheel', (e) => {
 
 // ===================== 开始表演 =====================
 function startShow() {
+  // 尝试自动播放音乐
+  const audio = document.getElementById('bgMusic');
+  if (audio) {
+    audio.play().catch(() => {});
+    document.getElementById('musicBtn').classList.add('playing');
+    isMusicPlaying = true;
+  }
+
   isShowStarted = true;
 
   // 隐藏开场
