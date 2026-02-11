@@ -13,6 +13,7 @@ body {
   font-family: 'Georgia', 'SimSun', serif;
   cursor: default;
   user-select: none;
+  touch-action: none; /* 禁止默认触摸行为 */
 }
 
 canvas#bgCanvas {
@@ -1306,6 +1307,34 @@ function onTouch(e) {
   mouseY = t.clientY;
   onClick({ clientX: t.clientX, clientY: t.clientY });
 }
+
+// 触摸滑动翻页
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+});
+
+document.addEventListener('touchend', (e) => {
+  if (!isShowStarted) return;
+  
+  const touchEndX = e.changedTouches[0].screenX;
+  const touchEndY = e.changedTouches[0].screenY;
+  
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+  
+  // 确保是水平滑动，且滑动距离足够长
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+    if (dx < 0) {
+      nextPage(); // 向左滑，下一页
+    } else {
+      prevPage(); // 向右滑，上一页
+    }
+  }
+});
 
 // 键盘翻页
 document.addEventListener('keydown', (e) => {
